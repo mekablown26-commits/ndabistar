@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mock & Proper — Ndabistar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --black:#050507; --gold:#C8A96E; --gold-light:#E8C98A; --cream:#F2EBD9; --dim:#1A1A20; --muted:#6B6B78; --white:#FAFAF8; }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--black);color:var(--white);font-family:'Space Mono',monospace;overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");pointer-events:none;z-index:9990;opacity:.4;}
+ 
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.5rem 4rem;background:linear-gradient(to bottom,rgba(5,5,7,.97),transparent);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);}
+    .nav-logo{font-family:'Bebas Neue';font-size:1.8rem;letter-spacing:.15em;color:var(--gold);text-decoration:none;}
+    .back-btn{display:flex;align-items:center;gap:.8rem;text-decoration:none;color:var(--muted);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;transition:color .3s;}
+    .back-btn:hover{color:var(--gold);}
+    .back-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;}
+ 
+    /* HERO */
+    .project-hero{min-height:70vh;display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 4rem 4rem;position:relative;overflow:hidden;}
+    .hero-img-bg{position:absolute;inset:0;background:url('https://raw.githubusercontent.com/mekablown26-commits/graphic-design-portfolio/main/Mock%20and%20Proper%20Banner.png') center/cover no-repeat;filter:brightness(.25) saturate(.6);}
+    .hero-gradient{position:absolute;inset:0;background:linear-gradient(to top,var(--black) 0%,transparent 60%);}
+    .project-index{font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;position:relative;z-index:1;}
+    .project-title{font-family:'Bebas Neue';font-size:clamp(4rem,10vw,9rem);line-height:.9;letter-spacing:.02em;position:relative;z-index:1;opacity:0;animation:fadeUp .8s .2s forwards;}
+    .project-title span{color:var(--gold);}
+    .project-tagline{font-family:'Syne';font-size:clamp(1rem,2vw,1.3rem);color:var(--muted);margin-top:1.2rem;position:relative;z-index:1;opacity:0;animation:fadeUp .8s .4s forwards;}
+ 
+    @keyframes fadeUp{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
+ 
+    /* META ROW */
+    .meta-row{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid rgba(200,169,110,.15);border-bottom:1px solid rgba(200,169,110,.15);background:var(--dim);}
+    .meta-item{flex:1;min-width:150px;padding:2rem;border-right:1px solid rgba(200,169,110,.1);}
+    .meta-item:last-child{border-right:none;}
+    .meta-label{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;}
+    .meta-value{font-family:'Syne';font-weight:700;font-size:.9rem;color:var(--cream);}
+ 
+    /* BODY */
+    .project-body{max-width:1200px;margin:0 auto;padding:6rem 4rem;}
+    .project-body h2{font-family:'Bebas Neue';font-size:clamp(2.5rem,5vw,4rem);letter-spacing:.05em;color:var(--white);margin-bottom:1.5rem;}
+    .project-body p{color:var(--muted);line-height:1.9;font-size:.85rem;margin-bottom:1.5rem;max-width:680px;}
+    .project-body p strong{color:var(--cream);}
+ 
+    .divider{width:100%;height:1px;background:rgba(200,169,110,.12);margin:4rem 0;}
+ 
+    /* GALLERY */
+    .gallery{display:grid;gap:1.5px;background:rgba(200,169,110,.08);}
+    .gallery.single{grid-template-columns:1fr;}
+    .gallery.duo{grid-template-columns:1fr 1fr;}
+    .gallery-item{overflow:hidden;background:var(--dim);position:relative;}
+    .gallery-item img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .6s ease;}
+    .gallery-item.cover img{object-fit:cover;}
+    .gallery-item:hover img{transform:scale(1.03);}
+ 
+    /* TOOLS */
+    .tools-section{margin-top:4rem;}
+    .tools-section h2{margin-bottom:2rem;}
+    .tags{display:flex;flex-wrap:wrap;gap:.8rem;}
+    .tag{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;border:1px solid rgba(200,169,110,.3);padding:.6rem 1.2rem;color:var(--cream);transition:all .3s;}
+    .tag:hover{background:var(--gold);color:var(--black);border-color:var(--gold);}
+ 
+    /* NAV PROJECTS */
+    .project-nav{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(200,169,110,.12);}
+    .proj-nav-item{padding:3rem 4rem;text-decoration:none;display:flex;flex-direction:column;gap:.6rem;transition:background .3s;border-right:1px solid rgba(200,169,110,.12);}
+    .proj-nav-item:last-child{border-right:none;align-items:flex-end;}
+    .proj-nav-item:hover{background:rgba(200,169,110,.04);}
+    .proj-nav-label{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+    .proj-nav-title{font-family:'Bebas Neue';font-size:1.8rem;letter-spacing:.05em;color:var(--white);transition:color .3s;}
+    .proj-nav-item:hover .proj-nav-title{color:var(--gold);}
+ 
+    /* FOOTER */
+    footer{border-top:1px solid rgba(200,169,110,.1);padding:2rem 4rem;display:flex;justify-content:space-between;background:var(--dim);}
+    footer p{font-size:.6rem;letter-spacing:.2em;color:var(--muted);}
+    footer span{color:var(--gold);}
+ 
+    /* REVEAL */
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s;}
+    .reveal.visible{opacity:1;transform:none;}
+ 
+    @media(max-width:768px){
+      nav{padding:1.2rem 1.5rem;}
+      .project-hero{padding:7rem 1.5rem 3rem;}
+      .project-body{padding:4rem 1.5rem;}
+      .meta-row{flex-direction:column;}
+      .meta-item{border-right:none;border-bottom:1px solid rgba(200,169,110,.1);padding:1.2rem 1.5rem;}
+      .gallery.duo{grid-template-columns:1fr;}
+      .project-nav{grid-template-columns:1fr;}
+      .proj-nav-item{padding:2rem 1.5rem;border-right:none;border-bottom:1px solid rgba(200,169,110,.1);}
+      .proj-nav-item:last-child{align-items:flex-start;}
+      footer{flex-direction:column;gap:.5rem;padding:1.5rem;}
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="../index.html" class="nav-logo">Ndabistar</a>
+    <a href="../index.html#portfolio" class="back-btn">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Portfolio
+    </a>
+  </nav>
+ 
+  <div class="project-hero">
+    <div class="hero-img-bg"></div>
+    <div class="hero-gradient"></div>
+    <p class="project-index">01 / 08 — Brand Identity</p>
+    <h1 class="project-title">Mock &amp; <span>Proper</span></h1>
+    <p class="project-tagline">Full brand identity — logo, banner, and visual system</p>
+  </div>
+ 
+  <div class="meta-row">
+    <div class="meta-item"><div class="meta-label">Category</div><div class="meta-value">Brand Identity</div></div>
+    <div class="meta-item"><div class="meta-label">Deliverables</div><div class="meta-value">Logo · Banner · Visual System</div></div>
+    <div class="meta-item"><div class="meta-label">Tools</div><div class="meta-value">Adobe Illustrator · Photoshop</div></div>
+    <div class="meta-item"><div class="meta-label">Year</div><div class="meta-value">2024</div></div>
+  </div>
+ 
+  <div class="project-body">
+    <div class="reveal">
+      <h2>The Brief</h2>
+      <p>Mock & Proper needed a brand identity that walked the line between <strong>playful irreverence and sharp professionalism</strong>. The name itself is a contradiction — and that tension became the creative engine for the whole visual system.</p>
+      <p>The challenge was to create something that felt premium without being stiff, and edgy without losing credibility. Every decision — from typeface to colour — had to serve that balance.</p>
+    </div>
+ 
+    <div class="divider"></div>
+ 
+    <div class="gallery single reveal">
+      <div class="gallery-item cover" style="aspect-ratio:21/9;">
+        <img src="https://raw.githubusercontent.com/mekablown26-commits/graphic-design-portfolio/main/Mock%20and%20Proper%20Banner.png" alt="Mock and Proper Banner"/>
+      </div>
+    </div>
+ 
+    <div class="divider"></div>
+ 
+    <div class="reveal">
+      <h2>The Approach</h2>
+      <p>The logo was built around <strong>typographic tension</strong> — pairing a refined serif-adjacent wordmark with bold, confident spacing. The letterforms needed to feel like they owned the room the moment they walked in.</p>
+      <p>The banner expanded that identity into a horizontal format — creating a sense of <strong>breadth and authority</strong>. Colour was kept intentional: a palette that signals quality without shouting it.</p>
+      <p>The result is a brand that can flex across digital and print — equally at home on a business card or a billboard.</p>
+    </div>
+ 
+    <div class="divider"></div>
+ 
+    <div class="gallery duo reveal">
+      <div class="gallery-item" style="aspect-ratio:1/1;">
+        <img src="https://raw.githubusercontent.com/mekablown26-commits/graphic-design-portfolio/main/Mock%20and%20Proper%20Logo.png" alt="Mock and Proper Logo"/>
+      </div>
+      <div class="gallery-item cover" style="aspect-ratio:1/1;background:linear-gradient(135deg,#1a1a2e,#16213e);">
+        <img src="https://raw.githubusercontent.com/mekablown26-commits/graphic-design-portfolio/main/Mock%20and%20Proper%20Logo.png" alt="Mock and Proper Logo dark" style="object-fit:contain;padding:3rem;filter:brightness(1.2);"/>
+      </div>
+    </div>
+ 
+    <div class="tools-section reveal">
+      <div class="divider"></div>
+      <h2>Tools Used</h2>
+      <div class="tags">
+        <span class="tag">Adobe Illustrator</span>
+        <span class="tag">Adobe Photoshop</span>
+        <span class="tag">Typography</span>
+        <span class="tag">Brand Strategy</span>
+        <span class="tag">Visual Identity</span>
+        <span class="tag">Logo Design</span>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="project-nav">
+    <a href="law-firm-animation.html" class="proj-nav-item">
+      <span class="proj-nav-label">← Previous Project</span>
+      <span class="proj-nav-title">Law Firm Animation</span>
+    </a>
+    <a href="razor-shogun.html" class="proj-nav-item">
+      <span class="proj-nav-label">Next Project →</span>
+      <span class="proj-nav-title">Razor Shogun</span>
+    </a>
+  </div>
+ 
+  <footer>
+    <p>© 2025 <span>Ndabistar</span> — Ian</p>
+    <p>Mock & Proper · Brand Identity</p>
+  </footer>
+ 
+  <script>
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*100); });
+    },{threshold:.1});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>

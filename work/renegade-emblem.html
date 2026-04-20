@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Renegade Emblem — Ndabistar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--black:#050507;--gold:#C8A96E;--gold-light:#E8C98A;--cream:#F2EBD9;--dim:#1A1A20;--muted:#6B6B78;--white:#FAFAF8;}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+    body{background:var(--black);color:var(--white);font-family:'Space Mono',monospace;overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");pointer-events:none;z-index:9990;opacity:.4;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.5rem 4rem;background:linear-gradient(to bottom,rgba(5,5,7,.97),transparent);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);}
+    .nav-logo{font-family:'Bebas Neue';font-size:1.8rem;letter-spacing:.15em;color:var(--gold);text-decoration:none;}
+    .back-btn{display:flex;align-items:center;gap:.8rem;text-decoration:none;color:var(--muted);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;transition:color .3s;}
+    .back-btn:hover{color:var(--gold);}
+    .back-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;}
+    .project-hero{min-height:70vh;display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 4rem 4rem;position:relative;overflow:hidden;}
+    .hero-img-bg{position:absolute;inset:0;background:url('https://raw.githubusercontent.com/mekablown26-commits/graphic-design-portfolio/main/Renegade%20Emblem.png') center/contain no-repeat,linear-gradient(135deg,#0a0a1a,#08080f);filter:brightness(.25);}
+    .hero-gradient{position:absolute;inset:0;background:linear-gradient(to top,var(--black) 0%,transparent 60%);}
+    .project-index{font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;position:relative;z-index:1;}
+    .project-title{font-family:'Bebas Neue';font-size:clamp(4rem,10vw,9rem);line-height:.9;letter-spacing:.02em;position:relative;z-index:1;opacity:0;animation:fadeUp .8s .2s forwards;}
+    .project-title span{color:var(--gold);}
+    .project-tagline{font-family:'Syne';font-size:clamp(1rem,2vw,1.3rem);color:var(--muted);margin-top:1.2rem;position:relative;z-index:1;opacity:0;animation:fadeUp .8s .4s forwards;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
+    .meta-row{display:flex;flex-wrap:wrap;border-top:1px solid rgba(200,169,110,.15);border-bottom:1px solid rgba(200,169,110,.15);background:var(--dim);}
+    .meta-item{flex:1;min-width:150px;padding:2rem;border-right:1px solid rgba(200,169,110,.1);}
+    .meta-item:last-child{border-right:none;}
+    .meta-label{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;}
+    .meta-value{font-family:'Syne';font-weight:700;font-size:.9rem;color:var(--cream);}
+    .project-body{max-width:1200px;margin:0 auto;padding:6rem 4rem;}
+    .project-body h2{font-family:'Bebas Neue';font-size:clamp(2.5rem,5vw,4rem);letter-spacing:.05em;margin-bottom:1.5rem;}
+    .project-body p{color:var(--muted);line-height:1.9;font-size:.85rem;margin-bottom:1.5rem;max-width:680px;}
+    .project-body p strong{color:var(--cream);}
+    .divider{width:100%;height:1px;background:rgba(200,169,110,.12);margin:4rem 0;}
+    .gallery{display:grid;gap:1.5px;background:rgba(200,169,110,.08);}
+    .gallery.single{grid-template-columns:1fr;}
+    .gallery-item{overflow:hidden;background:#0d0d12;position:relative;}
+    .gallery-item img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .6s;}
+    .gallery-item:hover img{transform:scale(1.03);}
+    .tags{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem;}
+    .tag{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;border:1px solid rgba(200,169,110,.3);padding:.6rem 1.2rem;color:var(--cream);transition:all .3s;}
+    .tag:hover{background:var(--gold);color:var(--black);border-color:var(--gold);}
+    .project-nav{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(200,169,110,.12);}
+    .proj-nav-item{padding:3rem 4rem;text-decoration:none;display:flex;flex-direction:column;gap:.6rem;transition:background .3s;border-right:1px solid rgba(200,169,110,.12);}
+    .proj-nav-item:last-child{border-right:none;align-items:flex-end;}
+    .proj-nav-item:hover{background:rgba(200,169,110,.04);}
+    .proj-nav-label{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+    .proj-nav-title{font-family:'Bebas Neue';font-size:1.8rem;letter-spacing:.05em;color:var(--white);transition:color .3s;}
+    .proj-nav-item:hover .proj-nav-title{color:var(--gold);}
+    footer{border-top:1px solid rgba(200,169,110,.1);padding:2rem 4rem;display:flex;justify-content:space-between;background:var(--dim);}
+    footer p{font-size:.6rem;letter-spacing:.2em;color:var(--muted);}footer span{color:var(--gold);}
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s;}.reveal.visible{opacity:1;transform:none;}
+    @media(max-width:768px){nav{padding:1.2rem 1.5rem;}.project-hero{padding:7rem 1.5rem 3rem;}.project-body{padding:4rem 1.5rem;}.meta-row{flex-direction:column;}.meta-item{border-right:none;border-bottom:1px solid rgba(200,169,110,.1);padding:1.2rem 1.5rem;}.project-nav{grid-template-columns:1fr;}.proj-nav-item{padding:2rem 1.5rem;border-right:none;border-bottom:1px solid rgba(200,169,110,.1);}.proj-nav-item:last-child{align-items:flex-start;}footer{flex-direction:column;gap:.5rem;padding:1.5rem;}}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="../index.html" class="nav-logo">Ndabistar</a>
+    <a href="../index.html#portfolio" class="back-btn"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to Portfolio</a>
+  </nav>
+  <div class="project-hero">
+    <div class="hero-img-bg"></div><div class="hero-gradient"></div>
+    <p class="project-index">03 / 08 — Emblem Design</p>
+    <h1 class="project-title">Renegade <span>Emblem</span></h1>
+    <p class="project-tagline">Badge design for the bold, the rebellious, the unapologetic</p>
+  </div>
+  <div class="meta-row">
+    <div class="meta-item"><div class="meta-label">Category</div><div class="meta-value">Emblem · Badge Design</div></div>
+    <div class="meta-item"><div class="meta-label">Style</div><div class="meta-value">Illustration · Typography</div></div>
+    <div class="meta-item"><div class="meta-label">Tools</div><div class="meta-value">Adobe Illustrator</div></div>
+    <div class="meta-item"><div class="meta-label">Year</div><div class="meta-value">2024</div></div>
+  </div>
+  <div class="project-body">
+    <div class="reveal">
+      <h2>The Idea</h2>
+      <p>Renegade is a word that means something. It means <strong>someone who refuses to follow the rules</strong> — who carves their own path regardless of what the crowd does. This emblem needed to embody that spirit completely.</p>
+      <p>The design brief was open-ended: create a mark that feels like it belongs on a jacket, a helmet, a team kit. Something with <strong>presence, history, and edge</strong>.</p>
+    </div>
+    <div class="divider"></div>
+    <div class="gallery single reveal">
+      <div class="gallery-item" style="aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;padding:4rem;">
+        <img src="https://raw.githubusercontent.com/mekablown26-commits/graphic-design-portfolio/main/Renegade%20Emblem.png" alt="Renegade Emblem" style="max-height:550px;"/>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="reveal">
+      <h2>The Craft</h2>
+      <p>The emblem uses a <strong>layered shield structure</strong> — classic badge architecture that signals legacy and trust, subverted by the Renegade identity beneath it. The typographic treatment is bold and unapologetic.</p>
+      <p>Every shape was built with vector precision in Illustrator — scalable from a 16px favicon to a 10-foot banner without losing a single detail. The torn paper effect adds <strong>tactile energy</strong> — like the brand is breaking through the surface it's printed on.</p>
+      <p>The result is an emblem that feels like it's been around for decades, but was built for right now.</p>
+    </div>
+    <div class="divider"></div>
+    <h2 class="reveal">Tools Used</h2>
+    <div class="tags reveal">
+      <span class="tag">Adobe Illustrator</span>
+      <span class="tag">Vector Illustration</span>
+      <span class="tag">Emblem Design</span>
+      <span class="tag">Badge Design</span>
+      <span class="tag">Typography</span>
+      <span class="tag">Logo Design</span>
+    </div>
+  </div>
+  <div class="project-nav">
+    <a href="razor-shogun.html" class="proj-nav-item"><span class="proj-nav-label">← Previous Project</span><span class="proj-nav-title">Razor Shogun</span></a>
+    <a href="sweet-aura.html" class="proj-nav-item"><span class="proj-nav-label">Next Project →</span><span class="proj-nav-title">Sweet Aura</span></a>
+  </div>
+  <footer><p>© 2025 <span>Ndabistar</span> — Ian</p><p>Renegade Emblem · Badge Design</p></footer>
+  <script>
+    const io=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*100);});},{threshold:.1});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>
