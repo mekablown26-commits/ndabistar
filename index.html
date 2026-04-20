@@ -132,7 +132,7 @@
       font-size:.6rem; letter-spacing:.35em; text-transform:uppercase;
       color: var(--gold); margin-bottom:1.2rem;
       display:flex; align-items:center; gap:1rem;
-      opacity:0; animation: fadeUp .6s .15s forwards;
+      animation: fadeUp .6s .15s both;
     }
     .hero-eyebrow::before {
       content:''; display:block; width:28px; height:1px; background:var(--gold);
@@ -146,8 +146,7 @@
       letter-spacing: .03em;
       position: relative;
       overflow: visible;
-      opacity:0; animation: fadeUp .7s .3s forwards;
-      animation-fill-mode: forwards !important;
+      animation: heroNameIn .7s .3s both;
     }
     .hero-name .line2 { color: var(--gold); }
  
@@ -193,7 +192,7 @@
       font-size: clamp(.9rem, 2.2vw, 1.5rem);
       color: var(--muted); margin-top:1.2rem;
       letter-spacing: .04em;
-      opacity:0; animation: fadeUp .6s .5s forwards;
+      animation: fadeUp .6s .5s both;
     }
     .hero-role .accent { color: var(--cream); }
     .role-cursor {
@@ -1487,6 +1486,32 @@
     }
   
   </style>
+ 
+  <style>
+    /* HERO VISIBILITY OVERRIDE */
+    .hero-name,
+    .hero-eyebrow,
+    .hero-role,
+    .hero-tags,
+    .hero-cta,
+    .hero-sub,
+    .hero-scroll {
+      animation-fill-mode: both !important;
+      animation-play-state: running !important;
+    }
+    /* Fallback: if animation somehow fails, show content */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-name,
+      .hero-eyebrow,
+      .hero-role,
+      .hero-tags,
+      .hero-cta {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
 </head>
 <body>
  
@@ -1571,12 +1596,20 @@
  
   <script>
 (function(){
-// SAFETY NET
-    setTimeout(function(){
-      document.querySelectorAll('.hero-name,.hero-eyebrow,.hero-role,.hero-tags,.hero-cta').forEach(function(el){
-        el.style.opacity='1'; el.style.transform='none';
+// SAFETY NET — force hero visible
+    function forceHeroVisible() {
+      var els = document.querySelectorAll('.hero-name,.hero-eyebrow,.hero-role,.hero-tags,.hero-cta,.hero-sub');
+      els.forEach(function(el) {
+        el.style.setProperty('opacity', '1', 'important');
+        el.style.setProperty('transform', 'none', 'important');
+        el.style.setProperty('animation-fill-mode', 'both', 'important');
       });
-    }, 1500);
+    }
+    // Run at multiple intervals to catch any timing issues
+    setTimeout(forceHeroVisible, 800);
+    setTimeout(forceHeroVisible, 1500);
+    setTimeout(forceHeroVisible, 3000);
+    window.addEventListener('load', forceHeroVisible);
     /* ── cursor ── */
     const cur = document.getElementById('cur');
     const curR = document.getElementById('cur-r');
@@ -2195,7 +2228,7 @@
     <div class="pitem wide bg-6" data-cat="app" style="aspect-ratio:2/1;">
       <div class="app-inner">
         <div class="app-icon">
-          <img src="assets/art-avid logo on mobile.jpeg" alt="Avid Shopper"
+          <img src="assets/art-avid-logo-on-mobile.jpeg" alt="Avid Shopper"
                onerror="this.parentElement.style.background='#444';this.style.display='none'"/>
         </div>
         <div class="app-info">
@@ -2605,8 +2638,8 @@ const revIO = new IntersectionObserver(entries => {
         </div>
  
         <div class="field">
-          <label for="service-select">What do you need?</label>
-          <select name="service" id="service-select">
+          <label>What do you need?</label>
+          <select name="service">
             <option value="" disabled selected>Select a service</option>
             <option>Logo & Brand Identity</option>
             <option>Web Development</option>
